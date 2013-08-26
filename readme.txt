@@ -1,5 +1,12 @@
-JSONPress
-=========
+=== JSONPress ===
+Contributors: takien
+Donate link: http://takien.com/donate
+Tags: json,api,jsonp,rest,restful,phonegap,json-api,rest-api
+Requires at least: 3.6
+Tested up to: 3.6
+Stable tag: 0.1
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 JSONPress - Allows you to request WordPress site via JSON/JSONP output.
 
@@ -30,6 +37,31 @@ Hei, how about $args of those functions?
 
 == Other notes ==
 * `/json/` Rewrite endpoints may be not work at this time. You can use sub domain or query `?json=1` instead
+
+== Installation ==
+
+There are many ways to install this plugin, e.g:
+
+1. Upload compressed (zip) plugin using WordPress plugin uploader.
+2. Install using plugin installer in WordPress dashboard.
+3. Upload manually uncompressed plugin file using FTP.
+
+== Frequently Asked Questions ==
+
+none
+
+== Screenshots ==
+
+1. Default
+2. Add debug=1 query to display JSON in pretty format
+3. You can also use print_r=1 for debugging purpose
+4. Use callback for JSONP access
+5. Settings page
+
+
+== Upgrade Notice ==
+
+none
 
 == Changelog ==
 
