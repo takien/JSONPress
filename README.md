@@ -35,6 +35,7 @@ Hei, how about $args of those functions?
 * `/json/` Rewrite endpoints may be not work at this time. You can use sub domain or query `?json=1` instead
 
 ## Changelog
+<<<<<<< HEAD
 
 = 0.2 =
 * exclude_query now run after result is formatted
@@ -44,6 +45,8 @@ Hei, how about $args of those functions?
 * fix notice errors
 * improved API access check
 * fix 404 result
+=======
+>>>>>>> 78168b3164aa02e7f56bf1076efabe75621992c1
 
 = 0.1 =
 * First release
