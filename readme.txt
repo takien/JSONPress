@@ -2,9 +2,9 @@
 Contributors: takien
 Donate link: http://takien.com/donate
 Tags: json,api,jsonp,rest,restful,phonegap,json-api,rest-api
-Requires at least: 3.6
+Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.1
+Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,15 @@ none
 none
 
 == Changelog ==
+
+= 0.2 =
+* exclude_query now run after result is formatted
+* function_exists check on `easy_get_image` library
+* permalink/site_url changed only if API domain is configured
+* fixed `json` endpoint, previously required to pass value json/1
+* fix notice errors
+* improved API access check
+* fix 404 result
 
 = 0.1 =
 * First release

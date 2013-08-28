@@ -2,35 +2,31 @@
 defined('ABSPATH') or die();
 
 $result = array_filter( (array)$wp_query );
-foreach(jsonpress_exclude_query() as $jsonpress_exclude_query) {
-	$jsonpress_exclude_query = trim($jsonpress_exclude_query);
-	if(isset($result[$jsonpress_exclude_query])) {
-		unset($result[$jsonpress_exclude_query]);
-	}
-}
-
-$status = Array('status'=>'found');
-$pagination = Array(
-	'pagination'=> Array(
-			'current_page'       => isset($result['query']['paged']) ? $result['query']['paged'] : isset($result['query_vars']['paged']) ? $result['query_vars']['paged'] : 0,
-			'previous_posts_link'=> get_previous_posts_link(),
-			'next_posts_link'    => get_next_posts_link(),
-			'previous_posts_url' => previous_posts(false),
-			'next_posts_url'     => next_posts(0,false),
-			'max_num_pages'      => $result['max_num_pages'],
-			'found_posts'        => $result['found_posts']
-	));
-
-
-
-$result = $pagination + $result;
-$result = $status + $result;
-
 $formatted_post = Array();
-if(!$result['posts']) {
+
+if( !empty($result['is_404']) ) {
 	$result['status'] = 'not found';
 }
+
 else {
+	$status = Array('status'=>'found');
+	$pagination = Array(
+				'pagination'=> Array(
+				'current_page'       => isset($result['query']['paged']) ? $result['query']['paged'] : isset($result['query_vars']['paged']) ? $result['query_vars']['paged'] : 0,
+				'previous_posts_link'=> get_previous_posts_link(),
+				'next_posts_link'    => get_next_posts_link(),
+				'previous_posts_url' => previous_posts(false),
+				'next_posts_url'     => next_posts(0,false),
+				'max_num_pages'      => (isset($result['max_num_pages']) OR 0),
+				'found_posts'        => $result['found_posts']
+		));
+
+
+
+	$result = $pagination + $result;
+	$result = $status + $result;
+
+
 	foreach((array)$result['posts'] as $index=>$posts) { 
 		foreach($posts as $key=>$value) {
 
@@ -90,7 +86,13 @@ else {
 		}
 	}
 }
-
+//unset excluded query 
+foreach(jsonpress_exclude_query() as $jsonpress_exclude_query) {
+	$jsonpress_exclude_query = trim($jsonpress_exclude_query);
+	if(isset($result[$jsonpress_exclude_query])) {
+		unset($result[$jsonpress_exclude_query]);
+	}
+}
 //UNSET ORIGINAL POSTS OBJECT
 unset($result['posts']);
 ///replace with modified one, eg. exclude some columns.

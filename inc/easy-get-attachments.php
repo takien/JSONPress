@@ -155,9 +155,11 @@ if(!class_exists('EasyAttachments')){
 	}
 }
 
+if(!function_exists('easy_get_image')) {
 function easy_get_image($size='thumbnail',$postid='',$featured=false) {
 	$return = new EasyAttachments;
 	$return = $return->output($size,$postid,$featured);
 	return $return;
+}
 }
 

@@ -2,7 +2,7 @@
 /*
 Plugin Name: JSONPress
 Author: Takien
-Version: 0.1
+Version: 0.2
 Description: JSON API for WordPress
 Author URI: http://takien.com/
 */
@@ -16,7 +16,7 @@ if(!class_exists('JSONPress')) {
 	
 		var $plugin_name    = 'JSONPress';
 		var $plugin_slug    = 'jsonpress';
-		var $plugin_version = '0.1';
+		var $plugin_version = '0.2';
 		
 		var $site_domain = '';
 		var $api_domain  = ''; 
@@ -46,6 +46,7 @@ if(!class_exists('JSONPress')) {
 		}
 		
 		function jsonpress_endpoints_activate() {
+			
 			$this->jsonpress_endpoints_add_endpoint();
 			flush_rewrite_rules();
 		}
@@ -56,27 +57,34 @@ if(!class_exists('JSONPress')) {
 		//check if access is from API URL.
 		
 		function jsonpress_api_access() {
+			global $wp_query;
 			if( !empty( $this->api_domain ) AND ($this->api_domain !== 'api.example.com' ) ) {
 				$path = str_replace('/index.php','',$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
-					if( $path == rtrim( $this->api_domain, '/' ) )
+					if( $path == rtrim( $this->api_domain, '/' ) ) {
 						return true;
+					}
 			}
 	
-			if( isset($_GET['json']) OR get_query_var('json') )
+			if( isset($_GET['json']) )
+				return true;
+				
+			if (isset( $wp_query->query_vars['json']))
 				return true;
 		}
 		
 		//modify site url
 		function jsonpress_site_url( $url ){
 			if( $this->jsonpress_api_access() ) {
-				$url = str_ireplace( $this->site_domain, $this->api_domain, $url);
+				if( !empty( $this->api_domain ) AND ($this->api_domain !== 'api.example.com' ) ) {
+					$url = str_ireplace( $this->site_domain, $this->api_domain, $url );
+				}
 			}
 			return $url;
 		}
 		
 		//TEMPLATE location
 		function jsonpress_template($template) {
-			if( $this->jsonpress_api_access() OR get_query_var('json') ){
+			if( $this->jsonpress_api_access() ){
 				$template = dirname( __FILE__ ) . '/template/index.php';
 			}
 			return $template;
