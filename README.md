@@ -36,6 +36,9 @@ Hei, how about $args of those functions?
 
 ## Changelog
 
+= 0.3 =
+* /json endpoints now works accross site, (previously only on page or post)
+
 = 0.2 =
 * exclude_query now run after result is formatted
 * function_exists check on `easy_get_image` library

@@ -2,7 +2,7 @@
 /*
 Plugin Name: JSONPress
 Author: Takien
-Version: 0.2
+Version: 0.3
 Description: JSON API for WordPress
 Author URI: http://takien.com/
 */
@@ -16,7 +16,7 @@ if(!class_exists('JSONPress')) {
 	
 		var $plugin_name    = 'JSONPress';
 		var $plugin_slug    = 'jsonpress';
-		var $plugin_version = '0.2';
+		var $plugin_version = '0.3';
 		
 		var $site_domain = '';
 		var $api_domain  = ''; 
@@ -93,7 +93,7 @@ if(!class_exists('JSONPress')) {
 		//rewrite endpoint
 		function jsonpress_endpoints_add_endpoint() {
 		// register a "json" endpoint to be applied to posts and pages
-			add_rewrite_endpoint( 'json', EP_PERMALINK | EP_PAGES );
+			add_rewrite_endpoint( 'json', EP_ALL );
 		}
 		//modify query
 		function jsonpress_custom_query( $query ) {
